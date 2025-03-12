@@ -58,6 +58,28 @@ def data_dirs() -> tuple[str, ...]:
     return ('/usr/local/share/', '/usr/share/')
 
 
+def find_data(path: str) -> tuple[str, ...]:
+    """Find user-specific data files.
+
+    $XDG_DATA_DIRS defines the preference-ordered set of base directories to
+    search for data files in addition to the $XDG_DATA_HOME base directory. The
+    order of base directories denotes their importance; the first directory
+    listed is the most important. When the same information is defined in
+    multiple places the information defined relative to the more important base
+    directory takes precedent. The base directory defined by $XDG_DATA_HOME is
+    considered more important than any of the base directories defined by
+    $XDG_DATA_DIRS.
+
+    See <https://specifications.freedesktop.org/basedir-spec/latest/> for more
+    information.
+    """
+    return tuple(
+        os.path.join(dir_, path)
+        for dir_ in (data_home(), *data_dirs())
+        if os.path.exists(os.path.join(dir_, path))
+    )
+
+
 def config_home() -> str:
     """A directory for user-specific configuration files.
 
@@ -107,6 +129,28 @@ def config_dirs() -> tuple[str, ...]:
             return tuple(dirs)
 
     return ('/etc/xdg',)
+
+
+def find_config(path: str) -> tuple[str, ...]:
+    """Find user-specific configuration files.
+
+    $XDG_CONFIG_DIRS defines the preference-ordered set of base directories to
+    search for configuration files in addition to the $XDG_CONFIG_HOME base
+    directory. The order of base directories denotes their importance; the
+    first directory listed is the most important. When the same information is
+    defined in multiple places the information defined relative to the more
+    important base directory takes precedent. The base directory defined by
+    $XDG_CONFIG_HOME is considered more important than any of the base
+    directories defined by $XDG_CONFIG_DIRS.
+
+    See <https://specifications.freedesktop.org/basedir-spec/latest/> for more
+    information.
+    """
+    return tuple(
+        os.path.join(dir_, path)
+        for dir_ in (config_home(), *config_dirs())
+        if os.path.exists(os.path.join(dir_, path))
+    )
 
 
 def state_home() -> str:
