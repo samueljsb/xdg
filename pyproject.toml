@@ -1,0 +1,52 @@
+[project]
+name = "xdg"
+version = "0"  # required
+
+requires-python = ">=3.9"
+dependencies = []
+
+classifiers = [
+  "Private :: Do Not Upload",
+]
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+py-modules = ["xdg"]
+
+# Ruff
+# ====
+
+[tool.ruff]
+line-length = 79
+
+target-version = "py39"
+
+[tool.ruff.lint]
+select = ["ALL"]
+ignore = [  # pragma: alphabetize
+  "COM812", "ISC001",  # conflicts with formatter
+  "D",  # docstring linting is annoying
+  "ISC003",  # bad advice -- requires implicit string concatenation
+  "PTH",  #  this package does not use pathlib
+  "Q000", "Q003",  # conflicts with quote-style = "single"
+  "TC003",  # do not require imports in TYPE_CHECKING block
+]
+
+task-tags = [
+  "pragma",
+]
+
+[tool.ruff.lint.isort]
+force-single-line = true
+
+[tool.ruff.lint.per-file-ignores]
+"*_test.py" = [  # pragma: alphabetize
+  "PLR2004",  # allow comparison to values
+  "S101",  # allow `assert`
+]
+
+[tool.ruff.format]
+quote-style = "single"
