@@ -28,6 +28,7 @@ target-version = "py39"
 select = ["ALL"]
 ignore = [  # pragma: alphabetize
   "COM812", "ISC001",  # conflicts with formatter
+  "CPY001",  # the project has a licence that does not require other copyright notices
   "D",  # docstring linting is annoying
   "ISC003",  # bad advice -- requires implicit string concatenation
   "PTH",  #  this package does not use pathlib
