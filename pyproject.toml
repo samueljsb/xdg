@@ -2,7 +2,7 @@
 name = "xdg"
 version = "0"  # required
 
-requires-python = ">=3.9"
+requires-python = ">=3.11"
 dependencies = []
 
 classifiers = [
@@ -22,7 +22,7 @@ py-modules = ["xdg"]
 [tool.ruff]
 line-length = 79
 
-target-version = "py39"
+target-version = "py311"
 
 [tool.ruff.lint]
 select = ["ALL"]
